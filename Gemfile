@@ -41,12 +41,13 @@ group :development, :test do
 end
 
 group :development do
+  gem 'listen'
   gem 'rubocop'
 end
 
 group :test do
-  gem 'rspec-rails'
   gem 'capybara'
+  gem 'rspec-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
