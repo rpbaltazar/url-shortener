@@ -23,10 +23,10 @@ Build a small link shortener service with an API as well as a small web front-en
 1. Clone the repository
 2. Install dependencies
   1. The project assumes you're using RVM, so if not, make sure you install it before. Also, after installing it, and having it added to your bash (or zsh) configuration, make sure you've reloaded the configuration (by opening a new terminal or running `source ~/.zshrc`) and that you've reloaded the project path, to make sure rvm loads the proper settings.
+  2. Install bundler
+  `$ gem install bundler`
   2. Install needed gems
-  ```
-  $ bundle install
-  ```
+  `$ bundle install`
 3. Configure your `database.yml` file. There is a sample (`database.yml.sample`) that can be used as reference, but make sure to update it according to your local database configuration.
   1. Please note: `You don't (shouldn't) commit the database.yml file into the repository`
 4. Run needed database configuration
