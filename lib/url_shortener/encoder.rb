@@ -7,7 +7,7 @@ module UrlShortener
       short_code = ''
       while id != 0
         remainder = id % ENCODING_CHARS.count
-        short_code << ENCODING_CHARS[remainder]
+        short_code.insert(0, ENCODING_CHARS[remainder])
         id /= ENCODING_CHARS.count
       end
       short_code
