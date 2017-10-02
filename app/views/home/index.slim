@@ -1,0 +1,29 @@
+h1 Yet Another URL Shortening Service
+
+#simple-form
+  input.full-url.su-input type='text'
+  button.submit type='button' Shorten
+
+#shorten-url-container
+  #result.su-input
+  button.copy type='button' Copy to Clipboard
+
+
+coffee:
+  document.onreadystatechange = ->
+    if document.readyState == 'complete'
+      $('button.submit').on 'click', ->
+        fullUrl = $('input.full-url').val()
+        $.ajax(
+          type: 'POST'
+          url: '/v1/urls',
+          data: { url: full_url: fullUrl },
+          success: (data) ->
+            $('#result').html(data.shortened_url)
+          error: (data) ->
+            $('#result').html(data.responseJSON.errors)
+          dataType: 'json'
+        )
+
+      $('button.copy').on 'click', ->
+        console.log 'TODO'

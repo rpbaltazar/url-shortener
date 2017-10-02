@@ -3,7 +3,7 @@ require 'url_shortener/encoder'
 
 module V1
   module Url
-    # NOTE: Operation that provides the logic for shortening url creation
+    # NOTE: Create Operation that provides the logic for shortening url creation
     class Create < Trailblazer::Operation
       step Model(::Url, :new)
       step Trailblazer::Operation::Contract::Build(constant: Url::Contract::Create)
