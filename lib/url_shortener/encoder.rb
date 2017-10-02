@@ -1,4 +1,6 @@
 module UrlShortener
+  # NOTE: Simple encoder that has a class method which will convert and integer
+  # into an 'encoded' string, using a 'base conversion'
   class Encoder
     ENCODING_CHARS = ('a'..'z').to_a
 

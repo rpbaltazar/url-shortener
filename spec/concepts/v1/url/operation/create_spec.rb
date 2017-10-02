@@ -12,6 +12,6 @@ RSpec.describe V1::Url::Create do
     expect(new_url_entry).to_not be_nil
     expect(new_url_entry.full_url).to eq 'http://google.com'
     # TODO: Check that the result is an ecoded string from the id
-    expect(new_url_entry.short_code).to_not be_nil
+    expect(new_url_entry.short_code).to eq UrlShortener::Encoder.encode(0)
   end
 end

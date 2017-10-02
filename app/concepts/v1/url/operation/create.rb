@@ -1,7 +1,9 @@
 require 'trailblazer'
+require 'url_shortener/encoder'
 
 module V1
   module Url
+    # NOTE: Operation that provides the logic for shortening url creation
     class Create < Trailblazer::Operation
       step Model(::Url, :new)
       step Trailblazer::Operation::Contract::Build(constant: Url::Contract::Create)
@@ -11,7 +13,7 @@ module V1
 
       # TODO: Write small lib to generate this based on the array of characters
       def generate_short_url!(_options, model:, **)
-        model.short_code = 'abc'
+        model.short_code = UrlShortener::Encoder.encode(::Url.count)
       end
     end
   end
