@@ -11,7 +11,6 @@ module V1
       step :generate_short_url!
       step Trailblazer::Operation::Contract::Persist()
 
-      # TODO: Write small lib to generate this based on the array of characters
       def generate_short_url!(_options, model:, **)
         model.short_code = UrlShortener::Encoder.encode(::Url.count)
       end
