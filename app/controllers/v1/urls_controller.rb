@@ -3,7 +3,7 @@ module V1
     def create
       result = ::V1::Url::Create.(params)
       if result.success?
-        render json: result['model'], status: :created
+        render json: ::V1::Url::Representer::Full.new(result['model']), status: :created
       else
         render json: {
           errors: result['contract.default'].errors.full_messages

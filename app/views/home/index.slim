@@ -19,7 +19,7 @@ coffee:
           url: '/v1/urls',
           data: { url: full_url: fullUrl },
           success: (data) ->
-            $('#result').html(data.short_code)
+            $('#result').html(data.shortened_url)
           error: (data) ->
             $('#result').html(data.responseJSON.errors)
           dataType: 'json'

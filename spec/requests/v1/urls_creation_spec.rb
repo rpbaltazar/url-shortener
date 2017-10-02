@@ -14,7 +14,7 @@ RSpec.describe 'URLs Creation', type: :request do
       it 'returns a created response code with correct data' do
         expect(response.content_type).to eq('application/json')
         expect(response).to have_http_status(:created)
-        expect(response.body).to eq Url.last.to_json
+        expect(response.body).to eq ::V1::Url::Representer::Full.new(Url.last).to_json
       end
     end
 
