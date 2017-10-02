@@ -16,6 +16,7 @@ gem 'puma', '~> 3.0'
 gem 'rails', '~> 5.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+gem 'slim'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'trailblazer-rails'
 gem 'turbolinks', '~> 5'

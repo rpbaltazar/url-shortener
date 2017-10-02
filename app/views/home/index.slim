@@ -1,0 +1,21 @@
+h1 Yet Another URL Shortening Service
+
+#simple-form
+  input.full-url type='text'
+  button.submit type='button' Shorten
+
+coffee:
+  document.onreadystatechange = ->
+    if document.readyState == 'complete'
+      $('button.submit').on 'click', ->
+        fullUrl = $('input.full-url').val()
+        $.ajax(
+          type: 'POST'
+          url: '/v1/url',
+          data: { url: full_url: fullUrl },
+          success: (data) ->
+            console.log data
+          error: (data) ->
+            console.log data.responseJSON.errors
+          dataType: 'json'
+        )
