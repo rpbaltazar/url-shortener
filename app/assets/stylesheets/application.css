@@ -13,3 +13,18 @@
  *= require_tree .
  *= require_self
  */
+
+.su-input {
+  width: 300px;
+  min-height: 18px;
+  margin: 4px;
+}
+
+#shorten-url-container {
+  display: block;
+}
+
+#result {
+  padding: 3px;
+  float: left;
+}
