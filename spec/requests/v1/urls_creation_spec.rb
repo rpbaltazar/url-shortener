@@ -14,7 +14,8 @@ RSpec.describe 'URLs Creation', type: :request do
       it 'returns a created response code with correct data' do
         expect(response.content_type).to eq('application/json')
         expect(response).to have_http_status(:created)
-        expect(response.body).to eq ::V1::Url::Representer::Full.new(Url.last).to_json
+        expected_body = ::V1::Url::Representer::Full.new(Url.last).to_json
+        expect(response.body).to eq expected_body
       end
     end
 
@@ -24,7 +25,8 @@ RSpec.describe 'URLs Creation', type: :request do
       it 'returns a unprocessable_entity response code with errors' do
         expect(response.content_type).to eq('application/json')
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(response.body).to eq({ errors: ["Full url can't be blank"] }.to_json)
+        expected_body = { errors: ["Full url can't be blank"] }.to_json
+        expect(response.body).to eq expected_body
       end
     end
   end
