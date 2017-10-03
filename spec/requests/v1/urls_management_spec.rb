@@ -49,5 +49,13 @@ RSpec.describe 'URLs Management', type: :request do
         expect(response).to have_http_status(:success)
       end
     end
+
+    describe 'when its a valid short url' do
+      let(:short_code) { 'bananas' }
+
+      it 'redirects to the full url' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 end
