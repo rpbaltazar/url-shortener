@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170928174229) do
+ActiveRecord::Schema.define(version: 20171003164459) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "url_statistics", force: :cascade do |t|
+    t.bigint "url_id"
+    t.jsonb "access_data", default: {}, null: false
+    t.index ["access_data"], name: "index_url_statistics_on_access_data", using: :gin
+    t.index ["url_id"], name: "index_url_statistics_on_url_id"
+  end
 
   create_table "urls", force: :cascade do |t|
     t.string "full_url"

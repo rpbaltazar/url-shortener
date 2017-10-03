@@ -12,7 +12,7 @@ module V1
     end
 
     def show
-      result = ::V1::Url::Visit.(params)
+      result = ::V1::Url::Visit.(params, request: request)
       if result.success?
         redirect_to result['model'].full_url
       else

@@ -8,6 +8,7 @@ module V1
     class Visit < Trailblazer::Operation
       step :setup_model!
       failure :model_not_found!
+      step :track_statistics!
 
       def setup_model!(options, params:, **)
         options['model'] = ::Url.find_by(short_code: params['short_code'])
@@ -16,6 +17,22 @@ module V1
 
       def model_not_found!(options, **)
         options['result.model'] = 'Url short code not found'
+      end
+
+      def track_statistics!(request:, model:, **)
+        url_statistic_params = {
+          url_statistic: {
+            user_agent: request.user_agent,
+            user: request.cookies['url-shortner-user'],
+            host: request.host,
+            accept_language: request.accept_language,
+            remote_addr: request.remote_addr,
+            url_id: model.id
+          }
+        }
+        # TODO: Offload to async task
+        ::V1::UrlStatistic::Create.(url_statistic_params)
+        true
       end
     end
   end
