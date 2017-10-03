@@ -3,7 +3,7 @@ class UrlStatistic < ActiveRecord::Base
 
   belongs_to :url
 
-  store_attributes :data do
+  store_attributes :access_data do
     user String
     user_agent String
     host String

@@ -20,12 +20,16 @@ module V1
       end
 
       def track_statistics!(request:, model:, **)
-        puts request.user_agent
-        puts request.cookies['url-shortner-user']
-        puts request.host
-        puts request.accept_language
-        puts request.remote_addr
-        puts model.id
+        # TODO: Offload to async task
+        # TODO 2: Reverse geolocate the ip address
+        UrlStatistic.create(
+          user_agent: request.user_agent,
+          user: request.cookies['url-shortner-user'],
+          host: request.host,
+          accept_language: request.accept_language,
+          remote_addr: request.remote_addr,
+          url_id: model.id
+        )
         true
       end
     end
