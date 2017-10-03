@@ -10,5 +10,14 @@ module V1
         }, status: :unprocessable_entity
       end
     end
+
+    def show
+      result = ::V1::Url::Visit.(params)
+      if result.success?
+        redirect_to result['model'].full_url
+      else
+        render file: 'public/404.html', status: :not_found, layout: false
+      end
+    end
   end
 end

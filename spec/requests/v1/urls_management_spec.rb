@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'URLs Creation', type: :request do
+RSpec.describe 'URLs Management', type: :request do
   describe 'post create' do
     let(:request) { post '/v1/urls', params: params }
 
@@ -27,6 +27,34 @@ RSpec.describe 'URLs Creation', type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
         expected_body = { errors: ["Full url can't be blank"] }.to_json
         expect(response.body).to eq expected_body
+      end
+    end
+  end
+
+  describe 'get show' do
+    let(:params) { { url: { full_url: 'http://google.com' } } }
+    let(:existing_url) { ::V1::Url::Create.(params)['model'] }
+    let(:request) { get "/#{short_code}" }
+
+    before do
+      request
+    end
+
+    describe 'when its a valid short url' do
+      let(:short_code) { existing_url.short_code }
+
+      it 'redirects to the full url' do
+        expect(response).to have_http_status(:redirect)
+        follow_redirect!
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    describe 'when its a valid short url' do
+      let(:short_code) { 'bananas' }
+
+      it 'redirects to the full url' do
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
