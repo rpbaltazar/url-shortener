@@ -10,5 +10,9 @@ module V1
         }, status: :unprocessable_entity
       end
     end
+
+    def show
+      render nothing: true
+    end
   end
 end
