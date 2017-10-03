@@ -20,16 +20,18 @@ module V1
       end
 
       def track_statistics!(request:, model:, **)
+        url_statistic_params = {
+          url_statistic: {
+            user_agent: request.user_agent,
+            user: request.cookies['url-shortner-user'],
+            host: request.host,
+            accept_language: request.accept_language,
+            remote_addr: request.remote_addr,
+            url_id: model.id
+          }
+        }
         # TODO: Offload to async task
-        # TODO 2: Reverse geolocate the ip address
-        UrlStatistic.create(
-          user_agent: request.user_agent,
-          user: request.cookies['url-shortner-user'],
-          host: request.host,
-          accept_language: request.accept_language,
-          remote_addr: request.remote_addr,
-          url_id: model.id
-        )
+        ::V1::UrlStatistic::Create.(url_statistic_params)
         true
       end
     end
