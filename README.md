@@ -1,3 +1,5 @@
+[![Build Status](https://semaphoreci.com/api/v1/rpbaltazar/url-shortener/branches/master/badge.svg)](https://semaphoreci.com/rpbaltazar/url-shortener)
+
 # README
 
 ## The requirement:
