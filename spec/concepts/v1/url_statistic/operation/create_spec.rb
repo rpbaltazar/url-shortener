@@ -38,4 +38,15 @@ RSpec.describe V1::UrlStatistic::Create do
       expect(new_stat_entry.url).to eq url
     end
   end
+
+  describe 'when the referenced url is invalid' do
+    let!(:url_id) { 1030 }
+
+    it 'does not create a statistic entry for short url' do
+      result = V1::UrlStatistic::Create.(params)
+
+      expect(result).to be_failure
+      expect(result['contract.default'].errors.full_messages).to eq ['Url not valid']
+    end
+  end
 end

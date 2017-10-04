@@ -11,6 +11,11 @@ module V1
         property :url_id
 
         validates :url_id, presence: true
+        validate :url?
+
+        def url?
+          errors.add('url_id', 'not valid') unless ::Url.find_by(id: url_id)
+        end
       end
     end
   end
