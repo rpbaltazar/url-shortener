@@ -1,12 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe 'URLs Management', type: :request do
+  before do
+    request
+  end
+
   describe 'post create' do
     let(:request) { post '/v1/urls', params: params }
-
-    before do
-      request
-    end
 
     describe 'when params are valid' do
       let(:params) { { url: { full_url: 'http://dummyurl.com' } } }
@@ -32,15 +32,11 @@ RSpec.describe 'URLs Management', type: :request do
   end
 
   describe 'get show' do
-    let(:params) { { url: { full_url: 'http://google.com' } } }
-    let(:existing_url) { ::V1::Url::Create.(params)['model'] }
     let(:request) { get "/#{short_code}" }
 
-    before do
-      request
-    end
-
     describe 'when its a valid short url' do
+      let(:params) { { url: { full_url: 'http://google.com' } } }
+      let(:existing_url) { ::V1::Url::Create.(params)['model'] }
       let(:short_code) { existing_url.short_code }
 
       it 'redirects to the full url' do
@@ -55,6 +51,22 @@ RSpec.describe 'URLs Management', type: :request do
 
       it 'redirects to the full url' do
         expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
+  describe 'get statistics' do
+    let(:request) { get "/v1/stats/#{short_code}" }
+
+    describe 'when its a valid url' do
+      let(:params) { { url: { full_url: 'http://google.com' } } }
+      let(:existing_url) { ::V1::Url::Create.(params)['model'] }
+      let(:short_code) { existing_url.short_code }
+
+      it 'returns a json with all the statistics for the url' do
+        expect(response).to have_http_status(:ok)
+        expected_body = ::V1::Url::Representer::Statistics.new(Url.last).to_json
+        expect(response.body).to eq expected_body
       end
     end
   end
