@@ -1,10 +1,12 @@
 module V1
   class StatsController < ApplicationController
     def show
-      # TODO: Operation to fetch statistics
-      # TODO: Representer for statistics
-      # TODO: Render json
-      render json: {}, status: :ok
+      result = ::V1::Url::FetchStatistics.(params)
+      if result.success?
+        render json: ::V1::Url::Representer::Statistics.new(result['model']), status: :ok
+      else
+        render json: { errors: result['model'] }, status: :unprocessable_entity
+      end
     end
   end
 end
