@@ -50,7 +50,7 @@ RSpec.describe 'URLs Management', type: :request do
       end
     end
 
-    describe 'when its a valid short url' do
+    describe 'when its an invalid short url' do
       let(:short_code) { 'bananas' }
 
       it 'redirects to the full url' do
