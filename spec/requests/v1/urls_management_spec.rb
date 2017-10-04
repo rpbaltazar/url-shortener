@@ -74,8 +74,9 @@ RSpec.describe 'URLs Management', type: :request do
       let(:short_code) { 'bananas' }
 
       it 'returns a json with all the statistics for the url' do
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(JSON.parse(response.body)['errors']).to eq 'Url short code not found'
+        expect(response).to have_http_status(:not_found)
+        errors = JSON.parse(response.body)['errors']
+        expect(errors).to eq 'Url short code not found'
       end
     end
   end

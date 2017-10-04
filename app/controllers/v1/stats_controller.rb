@@ -7,7 +7,7 @@ module V1
                status: :ok
       else
         render json: { errors: result['result.model'] },
-               status: :unprocessable_entity
+               status: :not_found
       end
     end
   end
