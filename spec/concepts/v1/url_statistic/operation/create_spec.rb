@@ -46,7 +46,8 @@ RSpec.describe V1::UrlStatistic::Create do
       result = V1::UrlStatistic::Create.(params)
 
       expect(result).to be_failure
-      expect(result['contract.default'].errors.full_messages).to eq ['Url not valid']
+      actual_errors = result['contract.default'].errors.full_messages
+      expect(actual_errors).to eq ['Url not valid']
     end
   end
 end
